@@ -282,7 +282,7 @@ GET /links/{short_url}/stats
 GET /links/expired_stats
 ```
 
-![](screenshots/expired_stats_200.png)
+![](screenshots/expired_200.png)
 
 #### Возможные ответы сервера:
 
