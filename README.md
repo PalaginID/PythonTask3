@@ -320,7 +320,7 @@ PUT /premium/premium
 GET /premium/expired_stats
 ```
 
-![](screenshots/premium_expired_stats_200.png)
+![](screenshots/premium_expired_200.png)
 
 #### Возможные ответы сервера:
 
