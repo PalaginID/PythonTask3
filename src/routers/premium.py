@@ -21,7 +21,7 @@ router = APIRouter(
 @router.put("/premium")
 async def set_premium(status: bool, session: AsyncSession = Depends(get_async_session), current_user: Optional[User] = Depends(current_active_user)):
     if not current_user:
-        raise HTTPException(status_code=401, detail="Unauthorized")
+        raise HTTPException(status_code=403, detail="Unauthorized")
     
     await session.execute(update(User_db).where(User_db.id == current_user.id).values(is_premium=status))
     await session.commit()

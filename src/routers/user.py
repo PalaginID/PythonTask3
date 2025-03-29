@@ -96,7 +96,7 @@ async def get_expired_link_stats(session: AsyncSession = Depends(get_async_sessi
 
     query = select(Link).where(Link.expires_at < datetime.now()).filter(Link.owner_id == current_user.id)
     result = await session.execute(query)
-    result = result.all()
+    result = result.scalars()
 
     if not result:
         raise HTTPException(status_code=404, detail=("Cannot find expired links created by you"))
@@ -159,6 +159,8 @@ async def get_short_url_stats(short_url: str, session: AsyncSession = Depends(ge
         raise HTTPException(status_code=404, detail=("Cannot find this short code"))
     elif result.owner_id and not result.owner_id == current_user.id:
         raise HTTPException(status_code=403, detail=("Cannot get stats for short codes created by other logged in users"))
+    elif result.expires_at < datetime.now():
+        raise HTTPException(status_code=404, detail=("Short link has expired. Use /expired_stats instead."))
     
     data = {
         "original_url": result.original_url,
@@ -191,13 +193,21 @@ async def update_short_url(short_url: str, new_alias: Optional[str], session: As
             if not result.scalars().first():
                 break
     
-    data = {
+    data_link = {
         "short_code": new_alias,
         "created_at": datetime.now()
     }
 
+    data_query ={
+        "short_code": new_alias
+    }
+
     try:
-        query = update(Link).where(Link.id == result.id).values(**data)
+        query = update(Link).where(Link.id == result.id).values(**data_link)
+        await session.execute(query)
+        await session.commit()
+
+        query = update(Query).where(Query.link_id == result.id).values(**data_query)
         await session.execute(query)
         await session.commit()
         return {"status": "success", "message": "Short url updated", "short_url": f"http://localhost/links/{new_alias}"}
