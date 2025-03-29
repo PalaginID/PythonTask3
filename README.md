@@ -52,9 +52,9 @@
     - password: String - пароль пользователя;
 
 - LinkCreate - схема для создания сокращенной ссылки:
-    original_link: String - оригинальная ссылка;
-    custom_alias: Optional[String] - сокращенная ссылка;
-    expires_at: Optional[String] - время истечения срока действия;
+    - original_link: String - оригинальная ссылка;
+    - custom_alias: Optional[String] - сокращенная ссылка;
+    - expires_at: Optional[String] - время истечения срока действия;
 
 ## Описание API:
 
@@ -64,7 +64,7 @@
 - Авторизация пользователя: `POST /auth/jwt/login`
 - Выход пользователя: `POST /auth/jwt/logout`
 
-![](PythonTask3\screenshots\auth.png)
+![](screenshots/auth.png)
 
 ### Основной функционал:
 
@@ -76,7 +76,7 @@
 - Статистика сокращения: `GET /links/{short_url}/stats`
 - Статистика устаревшего сокращения: `GET /links/expired_stats`
 
-![](PythonTask3\screenshots\links.png)
+![](screenshots/links.png)
 
 ### Премиум функционал:
 
@@ -85,7 +85,7 @@
 - Статистика устаревшего сокращения: `GET /premium/expired_stats`
 - История обращений к ссылке: `GET /premium/{short_url}/queries`
 
-![](PythonTask3\screenshots\premium.png)
+![](screenshots/premium.png)
 
 ## Примеры запросов:
 
@@ -102,7 +102,7 @@ POST /auth/register
 }
 ```
 
-![](PythonTask3\screenshots\register_201.png)
+![](screenshots/register_201.png)
 
 #### Возможные ответы сервера:
 
@@ -120,7 +120,7 @@ POST /auth/jwt/login
 }
 ```
 
-![](PythonTask3\screenshots\login.png)
+![](screenshots/login.png)
 
 #### Возможные ответы сервера:
 
@@ -158,7 +158,7 @@ POST /links/shorten
 }
 ```
 
-![](PythonTask3\screenshots\post_shorten_200.png)
+![](screenshots/post_shorten_200.png)
 
 #### Возможные ответы сервера:
 
@@ -179,7 +179,7 @@ GET /links/search
 }
 ```
 
-![](PythonTask3\screenshots\search_200.png)
+![](screenshots/search_200.png)
 
 #### Возможные ответы сервера:
 
@@ -196,7 +196,7 @@ GET /links/search
 GET /links/{short_url}
 ```
 
-![](PythonTask3\screenshots\redirect_307.png)
+![](screenshots/redirect_307.png)
 
 #### Возможные ответы сервера:
 
@@ -219,7 +219,7 @@ PUT /links/{short_url}
 }
 ```
 
-![](PythonTask3\screenshots\rename_200.png)
+![](screenshots/rename_200.png)
 
 #### Возможные ответы сервера:
 
@@ -241,7 +241,7 @@ DELETE /links/{short_url}
 }
 ```
 
-![](PythonTask3\screenshots\delete_200.png)
+![](screenshots/delete_200.png)
 
 #### Возможные ответы сервера:
 
@@ -263,7 +263,7 @@ GET /links/{short_url}/stats
 }
 ```
 
-![](PythonTask3\screenshots\stats_200.png)
+![](screenshots/stats_200.png)
 
 #### Возможные ответы сервера:
 
@@ -282,7 +282,7 @@ GET /links/{short_url}/stats
 GET /links/expired_stats
 ```
 
-![](PythonTask3\screenshots\expired_stats_200.png)
+![](screenshots/expired_stats_200.png)
 
 #### Возможные ответы сервера:
 
@@ -303,7 +303,7 @@ PUT /premium/premium
 }
 ```
 
-![](PythonTask3\screenshots\premium_200.png)
+![](screenshots/premium_200.png)
 
 #### Возможные ответы сервера:
 
@@ -320,7 +320,7 @@ PUT /premium/premium
 GET /premium/expired_stats
 ```
 
-![](PythonTask3\screenshots\premium_expired_stats_200.png)
+![](screenshots/premium_expired_stats_200.png)
 
 #### Возможные ответы сервера:
 
@@ -341,7 +341,7 @@ GET /premium/{short_url}/stats
 }
 ```
 
-![](PythonTask3\screenshots\premium_stats_200.png)
+![](screenshots/premium_stats_200.png)
 
 #### Возможные ответы сервера:
 
@@ -362,7 +362,7 @@ GET /premium/{short_url}/queries
 }
 ```
 
-![](PythonTask3\screenshots\premium_queries_200.png)
+![](screenshots/premium_queries_200.png)
 
 #### Возможные ответы сервера:
 
