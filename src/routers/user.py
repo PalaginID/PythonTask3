@@ -5,8 +5,9 @@ from sqlalchemy import select, insert, delete, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from database import get_async_session
 from fastapi_cache.decorator import cache
-from fastapi_cache import FastAPICache
 from datetime import datetime, timedelta
+from urllib.parse import urlparse
+import re
 import secrets
 
 from auth.users import current_active_user
@@ -23,10 +24,44 @@ router = APIRouter(
 )
 
 
+def is_valid_url(url: str) -> bool:
+    try:
+        result = urlparse(url)
+        return all([result.scheme in ['http', 'https'], result.netloc])
+    except ValueError:
+        return False
+
+  
+def is_valid_short_code(short_code: str) -> bool:
+    pattern = r'^[a-zA-Z0-9_-]+$'
+    return bool(re.fullmatch(pattern, short_code))
+
+
+def is_valid_date_format(date_string: str) -> bool:
+    formats = [
+        "%Y-%m-%d %H:%M",
+        "%Y-%m-%d %H",
+        "%Y-%m-%d",
+    ]
+    for fmt in formats:
+        try:
+            datetime.strptime(date_string, fmt)
+            return True
+        except ValueError:
+            continue
+    return False
+
+
 @router.post("/shorten")
 async def shorten_link(request: LinkCreate, session: AsyncSession = Depends(get_async_session), current_user: Optional[User] = Depends(current_active_user)):
 
+    if not is_valid_url(request.url):
+        raise HTTPException(status_code=400, detail="Invalid URL")
+    
+
     if request.custom_alias:
+        if not is_valid_short_code(request.custom_alias):
+            raise HTTPException(status_code=400, detail="Invalid custom alias")
         query = select(Link).where(Link.short_code == request.custom_alias)
         result = await session.execute(query)
         if result.scalar_one_or_none():
@@ -175,6 +210,9 @@ async def get_short_url_stats(short_url: str, session: AsyncSession = Depends(ge
 async def update_short_url(short_url: str, new_alias: Optional[str], session: AsyncSession = Depends(get_async_session), current_user: Optional[User] = Depends(current_active_user)):
     if not current_user:
         raise HTTPException(status_code=403, detail="You should log in to update short urls")
+    
+    if not is_valid_short_code(new_alias):
+        raise HTTPException(status_code=400, detail=("Invalid new alias"))
     
     query = select(Link).where(Link.short_code == short_url)
     result = await session.execute(query)
