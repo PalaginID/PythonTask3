@@ -385,23 +385,23 @@ GET /premium/{short_url}/queries
 
 ### Авторизация, login, logout
 
-![]()
+![](https://drive.google.com/uc?export=view&id=1279cum7JWw9_S-BpcASEW2iZd2kqWSXh)
 
 ### Создание ссылки, поиск ссылки и перенаправление неавторизованным пользователем
 
-![]()
+![](https://drive.google.com/uc?export=view&id=1QRiKtQNVaD-XkbuvaSI42og1N7fTTvHN)
 
 ### Создание ссылки, изменение короткой ссылки авторизованным пользователем
 
-![]()
+![](https://drive.google.com/uc?export=view&id=13SAv1Bb8FMnxcthY94y9_MA_W40bNpsy)
 
 ### Создание просроченной ссылки, получение статистики по просроченной ссылке и по обычной, удаление ссылки авторизованным пользователем
 
-![]()
+![](https://drive.google.com/uc?export=view&id=15SI5dcuTSrupdU4hE2zWjE-_s1o_vhCK)
 
 ### Переключение на премиум аккаунт, получение статистики по запросам и просроченным и обычным ссылкам премиум пользователем
 
-![]()
+![](https://drive.google.com/uc?export=view&id=1r5pIVxm_ueiPTmv3UK8y_vrKCH7Kznh4)
 
 # Тестирование
 
