@@ -389,7 +389,7 @@ GET /premium/{short_url}/queries
 
 ### Создание ссылки, поиск ссылки и перенаправление неавторизованным пользователем
 
-![](https://drive.google.com/uc?export=view&id=1QRiKtQNVaD-XkbuvaSI42og1N7fTTvHN)
+![](screenshots/not_auth.gif)
 
 ### Создание ссылки, изменение короткой ссылки авторизованным пользователем
 
