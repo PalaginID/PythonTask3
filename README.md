@@ -401,7 +401,7 @@ GET /premium/{short_url}/queries
 
 ### Переключение на премиум аккаунт, получение статистики по запросам и просроченным и обычным ссылкам премиум пользователем
 
-![](https://drive.google.com/uc?export=view&id=1r5pIVxm_ueiPTmv3UK8y_vrKCH7Kznh4)
+![](screenshots/premium.gif)
 
 # Тестирование
 
