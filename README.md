@@ -385,7 +385,7 @@ GET /premium/{short_url}/queries
 
 ### Авторизация, login, logout
 
-![](https://drive.google.com/uc?export=view&id=1279cum7JWw9_S-BpcASEW2iZd2kqWSXh)
+![](screenshots/register.gif)
 
 ### Создание ссылки, поиск ссылки и перенаправление неавторизованным пользователем
 
