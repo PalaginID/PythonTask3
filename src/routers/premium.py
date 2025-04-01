@@ -2,11 +2,11 @@ from fastapi import APIRouter, Depends, HTTPException
 from typing import Optional
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
-from database import get_async_session
 from fastapi_cache.decorator import cache
 from fastapi_cache import FastAPICache
 from datetime import datetime
 
+from database import get_async_session
 from auth.users import current_active_user
 from auth.database import User
 from models import Link, Query, User as User_db
@@ -43,7 +43,7 @@ async def get_expired_link_stats(session: AsyncSession = Depends(get_async_sessi
 
     query = select(Link).where(Link.expires_at < datetime.now())
     result = await session.execute(query)
-    result = result.scalars()
+    result = result.scalars().all()
 
     if not result:
         raise HTTPException(status_code=404, detail=("Cannot find any expired links"))
@@ -99,12 +99,19 @@ async def get_short_url_queries(short_url: str, session: AsyncSession = Depends(
     if not status.is_premium:
         raise HTTPException(status_code=403, detail="You should be a premium user to get short url queries")
 
-    query = select(Query).where(Query.short_code == short_url)
+    query = select(Link).where(Link.short_code == short_url)
     result = await session.execute(query)
-    result = result.scalars()
+    result = result.scalars().all()
 
     if not result:
         raise HTTPException(status_code=404, detail=("Cannot find this short code"))
+
+    query = select(Query).where(Query.short_code == short_url)
+    result = await session.execute(query)
+    result = result.scalars().all()
+
+    if not result:
+        raise HTTPException(status_code=404, detail=("No queries found"))
 
     data = [{
         "link_id": r.link_id,

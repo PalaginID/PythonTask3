@@ -1,16 +1,18 @@
 from datetime import datetime
-
+import uuid
 from sqlalchemy import Column, String, TIMESTAMP, Boolean, DateTime, Integer, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import DeclarativeBase, relationship
 
-Base = declarative_base()
 
+
+class Base(DeclarativeBase):
+    pass
 
 class User(Base):
     __tablename__ = "user"
 
-    id = Column(UUID, primary_key=True, index=True)
+    id = Column(UUID, primary_key=True, index=True, default=uuid.uuid4)
     email = Column(String, nullable=False)
     hashed_password = Column(String, nullable=False)
     registered_at = Column(TIMESTAMP, default=datetime.utcnow)
